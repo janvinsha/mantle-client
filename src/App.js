@@ -260,7 +260,7 @@ const App = () => {
         item.category,
         item.description,
         item.tags,
-        { value: ethers.utils.parseUnits('0.02', 'ether'), gasLimit: 374330 }
+        { value: ethers.utils.parseUnits('0.025', 'ether'), gasLimit: 374330 }
       );
       setCreatingItem(false);
       console.log('NFT Created Successfully', tx);

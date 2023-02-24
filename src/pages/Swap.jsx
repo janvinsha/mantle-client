@@ -82,25 +82,6 @@ function DEX() {
     }
   };
 
-  // sdk.on('TRANSFER', async (transferStatus) => {
-  //   if (transferStatus.status === 'CHAIN_SWITCH_REQUIRED') {
-  //     // https://docs.metamask.io/guide/rpc-api.html#usage-with-wallet-switchethereumchain
-  //     try {
-  //       await window.ethereum.request({
-  //         method: 'wallet_switchEthereumChain',
-  //         params: [chain],
-  //       });
-  //     } catch (switchError) {
-  //       if (switchError.code === 4902) {
-  //         await window.ethereum.request({
-  //           method: 'wallet_addEthereumChain',
-  //           params: [chain],
-  //         });
-  //       }
-  //     }
-  //   }
-  // });
-
   // Connect to a wallet
   const connect = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -152,8 +133,10 @@ function DEX() {
         console.log('Please check chain and tokens');
         return;
       }
-
-      const tokenAmount = new BigNumber(amount).times(10 ** fromToken?.decimal);
+      console.log('THIS  IS THE FROM TOKEN', fromToken);
+      const tokenAmount = new BigNumber(amount).times(
+        10 ** fromToken?.decimals
+      );
 
       // Setup transfer parameters
       const transferParams = {
@@ -183,7 +166,6 @@ function DEX() {
       setSwapping(false);
     } catch (error) {
       setSwapping(false);
-      alert('An error occurred, try again');
       console.log(error, 'EnCOUNTERED AN ERROR');
     }
   };
