@@ -2,11 +2,14 @@ import { ethers, Wallet, providers, BigNumber } from 'ethers';
 import marketContract from './marketContract.json';
 let PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY;
 let ALCHEMY_KEY = process.env.REACT_APP_ALCHEMY_KEY;
-const MARKET_CONTRACT_ADDRESS = '0xBaFDdDCd96e18Bedd401f781c4020E8677898828';
+const MARKET_CONTRACT_ADDRESS = '0x46874FEe5Ac808277559c619c52B295429A32911';
 
 const wallet = new Wallet(PRIVATE_KEY);
-const provider = new providers.AlchemyProvider('maticmum', ALCHEMY_KEY);
-const signer = wallet.connect(provider);
+
+const l2RpcProvider = new ethers.providers.JsonRpcProvider(
+  'https://rpc.testnet.mantle.xyz'
+);
+const signer = wallet.connect(l2RpcProvider);
 const contract = new ethers.Contract(
   MARKET_CONTRACT_ADDRESS,
   marketContract.abi,

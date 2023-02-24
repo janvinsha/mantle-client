@@ -14,6 +14,7 @@ import { Loader } from '../components';
 import AppContext from '../context/AppContext';
 import { pageAnimation } from '../animation';
 import PhotoIcon from '@mui/icons-material/Photo';
+import { useCollectionOfAddress } from '../hooks/useCollectionOfAddress';
 const projectId = process.env.REACT_APP_INFURA_PROJECT_ID;
 const projectSecret = process.env.REACT_APP_INFURA_PROJECT_SECRET;
 
@@ -108,22 +109,12 @@ const CreateNft = ({ show, onClose }) => {
     }
   };
 
-  const GET_USER_COLLECTIONS_QUERY = gql`
-    query GetUserCollections($owner: String) {
-      collections(where: { owner_contains: $owner }) {
-        name
-        collectionId
-      }
-    }
-  `;
-  const { data, loading, error } = useQuery(GET_USER_COLLECTIONS_QUERY, {
-    variables: { owner: currentAccount },
-  });
+  const { collectionList } = useCollectionOfAddress(currentAccount);
 
-  console.log('HERE ARE THE USERS COLLECTIONS', data);
+  console.log('HERE ARE THE USERS COLLECTIONS', collectionList);
   let foundCollections = [{}];
 
-  let collections = data?.collections;
+  let collections = collectionList;
   let arrayWork = () => {
     if (collections) {
       for (let x of collections) {
@@ -225,7 +216,7 @@ const CreateNft = ({ show, onClose }) => {
 
             <Input
               name="price"
-              label="Price in ETH"
+              label="Price in BIT"
               asterik={true}
               placeholder="Price"
               type="number"
@@ -247,7 +238,7 @@ const CreateNft = ({ show, onClose }) => {
             />
 
             <button type="submit">Create item</button>
-            <small className="listing-price">Listing Fee is 0.025 ETH</small>
+            <small className="listing-price">Listing Fee is 0.025 BIT</small>
           </form>
         </div>
       </motion.div>

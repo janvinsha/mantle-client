@@ -35,7 +35,7 @@ import AppContext from './context/AppContext';
 
 import marketContract from './utils/marketContract.json';
 
-const MARKET_CONTRACT_ADDRESS = '0xBaFDdDCd96e18Bedd401f781c4020E8677898828';
+const MARKET_CONTRACT_ADDRESS = '0x46874FEe5Ac808277559c619c52B295429A32911';
 
 const AIRDROP_CONTRACT_ADDRESS = '0x7992D9C75aBf9d0a7823d18f8c2A6346aAAD5d30';
 
@@ -250,7 +250,6 @@ const App = () => {
       );
       setCreatingItem(true);
       console.log('Going to pop wallet now to pay gas..., for creatingitem');
-      let listingPrice = await connectedContract.getListingPrice();
 
       const tx = await connectedContract.createToken(
         item.tokenURI,
@@ -261,7 +260,7 @@ const App = () => {
         item.category,
         item.description,
         item.tags,
-        { value: listingPrice, gasLimit: 250000, gasPrice: 20000000000 }
+        { value: ethers.utils.parseUnits('0.02', 'ether'), gasLimit: 374330 }
       );
       setCreatingItem(false);
       console.log('NFT Created Successfully', tx);
@@ -324,7 +323,6 @@ const App = () => {
       let tx = await connectedContract.createMarketSale(id, {
         value: price,
         gasLimit: 250000,
-        gasPrice: 20000000000,
       });
       // }
 

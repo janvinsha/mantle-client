@@ -27,7 +27,7 @@ const NftCard = ({ nft }) => {
       <div className="nft-desc">
         <span className="nft_title">
           <h3>{nft?.name}</h3>{' '}
-          <p>{ethers.utils.formatUnits(nft?.price?.toString(), 'ether')} ETH</p>
+          <p>{ethers.utils.formatUnits(nft?.price?.toString(), 'ether')} BIT</p>
         </span>
 
         <span className="nft_sale">
